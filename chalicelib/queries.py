@@ -65,22 +65,25 @@ class Queries(object):
         comma         = ''
         res = False
         with conn.cursor() as cur:
-            for idx, row in enumerate(content):
-                if idx % 30000 == 0 :
-                    comma      = ''
-                    if idx != 0:
-                        insert_sql =  table[3] + insert_params
-                        res        = cur.execute(insert_sql)
-                        conn.commit()
-                        insert_params = ''
+            try:
+                for idx, row in enumerate(content):
+                    if idx % 30000 == 0 :
+                        comma      = ''
+                        if idx != 0:
+                            insert_sql =  table[3] + insert_params
+                            res        = cur.execute(insert_sql)
+                            conn.commit()
+                            insert_params = ''
+                            pass
                         pass
-                    pass
-                else :
-                    comma = ','
-                insert_params = insert_params + comma + eval(table[4])
-            insert_sql =  table[3] + insert_params
-            res        = cur.execute(insert_sql)
-            conn.commit()
+                    else :
+                        comma = ','
+                    insert_params = insert_params + comma + eval(table[4])
+                insert_sql =  table[3] + insert_params
+                res        = cur.execute(insert_sql)
+                conn.commit()
+            except:
+                print ('Empty File')
         cur.close()
         conn.close()
         return res;
