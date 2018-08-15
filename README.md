@@ -5,7 +5,12 @@ A explanation on how it works can founded here:
 - https://dev.to/diegonalvarez/aws-lambda---step-functions---rds---s3---aurora---part-1-1fe
 
 
-### Json For Unique Machine
+## Requirementes
+
+- Chalice 1.1.0
+- Python 2.7
+
+## Json For Unique Machine
 
 ```
 {
