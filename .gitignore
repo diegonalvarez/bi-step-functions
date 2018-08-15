@@ -1,6 +1,7 @@
 .chalice/deployments/
 .chalice/venv/
 .chalice/*
+!.chalice/config.sample.json
 *.pyc
 .DS_Store
 __pycache__/

@@ -1,0 +1,33 @@
+{
+  "stages": {
+    "dev": {
+      "environment_variables": {
+        "aurora_host"     : "test",
+        "aurora_username" : "test",
+        "aurora_password" : "test",
+        "aurora_db_name"  : "test",
+        "rds_host"        : "test",
+        "rds_username"    : "test",
+        "rds_password"    : "test",
+        "rds_db_name"     : "test",
+        "bucket"          : "bucket-name",
+        "bucket_prefix"   : " /bucket-prefix/",
+        "project_alias"   : "project-alias"
+      },
+      "manage_iam_role" : false,
+      "iam_role_arn"    : "iam-role-arn",
+      "lambda_functions": {
+        "mysql_csv_to_s3": {
+          "lambda_timeout": 300,
+          "lambda_memory_size": 256
+        },
+        "s3_to_mysql": {
+          "lambda_timeout": 300,
+          "lambda_memory_size": 256
+        }
+      }
+    }
+  },
+  "version": "2.0",
+  "app_name": "bi_structure"
+}
