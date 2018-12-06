@@ -1,12 +1,13 @@
 import os
 from .mysql import MySql
+from datetime import datetime, timedelta
 
 class Queries(object):
 
     def companies(self):
         mysql = MySql(os.environ['aurora_host'], os.environ['aurora_username'], os.environ['aurora_password'], os.environ['aurora_db_name'])
         conn  = mysql.connect()
-        query = "SELECT * FROM companies WHERE status = 1"
+        query = "SELECT companies.*, companies_configurations.configuration_value FROM companies INNER JOIN companies_configurations ON companies.company_id = companies_configurations.retail_id WHERE status = 1"
         data  = True
         try:
             with conn.cursor() as cur:
@@ -16,8 +17,8 @@ class Queries(object):
                     data.append(row)
                 cur.close()
             conn.close()
-        except:
-            print ('Database Error')
+        except Exception, e:
+            print str(e)
         return data;
 
     def tables(self):
@@ -45,16 +46,19 @@ class Queries(object):
         query  = table[1]
         data   = True
 
+        date      = datetime.today() - timedelta(days=int(float(company[5])))
+        where_var = table[2].replace("date", date.strftime('%Y-%m-%d'))
+
         try:
             with conn.cursor() as cur:
-                cur.execute(query, (eval(table[2])))
+                cur.execute(query, (eval(where_var)))
                 data = []
                 for row in cur:
                     data.append(row)
                 cur.close()
             conn.close()
-        except:
-            print ('Database Error')
+        except Exception, e:
+            print str(e)
 
         return data;
 
